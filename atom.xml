@@ -4,7 +4,7 @@
   <title><![CDATA[Ahmet ERKOC Personal Web Page]]></title>
   <link href="http://sly01.github.io/atom.xml" rel="self"/>
   <link href="http://sly01.github.io/"/>
-  <updated>2014-06-27T17:55:22+00:00</updated>
+  <updated>2014-06-27T22:56:20+03:00</updated>
   <id>http://sly01.github.io/</id>
   <author>
     <name><![CDATA[Ahmet ERKOC]]></name>
@@ -14,9 +14,18 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Listen Youtube Music From Terminal]]></title>
+    <link href="http://sly01.github.io/blog/2014/06/27/listen-youtube-music-from-terminal/"/>
+    <updated>2014-06-27T22:55:37+03:00</updated>
+    <id>http://sly01.github.io/blog/2014/06/27/listen-youtube-music-from-terminal</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[HAProxy Documentation]]></title>
     <link href="http://sly01.github.io/blog/2014/06/27/haproxy-documentation/"/>
-    <updated>2014-06-27T17:54:37+00:00</updated>
+    <updated>2014-06-27T20:54:37+03:00</updated>
     <id>http://sly01.github.io/blog/2014/06/27/haproxy-documentation</id>
     <content type="html"><![CDATA[<h3>Installing HAProxy on Ubuntu</h3>
 
@@ -198,7 +207,7 @@
   <entry>
     <title type="html"><![CDATA[Chef Server-Client Documentation]]></title>
     <link href="http://sly01.github.io/blog/2014/06/27/chef-server-client-documentation/"/>
-    <updated>2014-06-27T17:40:26+00:00</updated>
+    <updated>2014-06-27T20:40:26+03:00</updated>
     <id>http://sly01.github.io/blog/2014/06/27/chef-server-client-documentation</id>
     <content type="html"><![CDATA[<h3>Server Installation</h3>
 
@@ -541,19 +550,6 @@
 
 
 <h4>Then you will see the Hello World Page in <a href="http://chefclienthost">http://chefclienthost</a></h4>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Hello-octopress]]></title>
-    <link href="http://sly01.github.io/blog/2014/06/27/hello-octopress/"/>
-    <updated>2014-06-27T16:44:47+00:00</updated>
-    <id>http://sly01.github.io/blog/2014/06/27/hello-octopress</id>
-    <content type="html"><![CDATA[<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Ilk blog postum</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>Cok heyecanli</h3>
 ]]></content>
   </entry>
   

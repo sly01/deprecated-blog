@@ -3,36 +3,36 @@
   
   
   <url>
+    <loc>http://sly01.github.io/blog/2014/06/27/listen-youtube-music-from-terminal/</loc>
+    <lastmod>2014-06-27T22:55:37+03:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://sly01.github.io/blog/2014/06/27/haproxy-documentation/</loc>
-    <lastmod>2014-06-27T17:54:37+00:00</lastmod>
+    <lastmod>2014-06-27T20:54:37+03:00</lastmod>
     <priority>0.8</priority>
   </url>
   
   <url>
     <loc>http://sly01.github.io/blog/2014/06/27/chef-server-client-documentation/</loc>
-    <lastmod>2014-06-27T17:40:26+00:00</lastmod>
+    <lastmod>2014-06-27T20:40:26+03:00</lastmod>
     <priority>0.8</priority>
   </url>
   
-  <url>
-    <loc>http://sly01.github.io/blog/2014/06/27/hello-octopress/</loc>
-    <lastmod>2014-06-27T16:44:47+00:00</lastmod>
-    <priority>0.8</priority>
-  </url>
-  
-  
-  <url>
-    <loc>http://sly01.github.io/</loc>
-    <lastmod>2014-06-27T17:55:22+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
   
   <url>
     <loc>http://sly01.github.io/blog/archives/</loc>
-    <lastmod>2014-06-27T17:55:22+00:00</lastmod>
+    <lastmod>2014-06-27T22:56:20+03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://sly01.github.io/</loc>
+    <lastmod>2014-06-27T22:56:20+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   
   
