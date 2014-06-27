@@ -4,7 +4,7 @@
   <title><![CDATA[Ahmet ERKOC Personal Web Page]]></title>
   <link href="http://sly01.github.io/atom.xml" rel="self"/>
   <link href="http://sly01.github.io/"/>
-  <updated>2014-06-27T22:56:20+03:00</updated>
+  <updated>2014-06-27T22:59:33+03:00</updated>
   <id>http://sly01.github.io/</id>
   <author>
     <name><![CDATA[Ahmet ERKOC]]></name>
@@ -16,9 +16,64 @@
   <entry>
     <title type="html"><![CDATA[Listen Youtube Music From Terminal]]></title>
     <link href="http://sly01.github.io/blog/2014/06/27/listen-youtube-music-from-terminal/"/>
-    <updated>2014-06-27T22:55:37+03:00</updated>
+    <updated>2014-06-27T22:58:17+03:00</updated>
     <id>http://sly01.github.io/blog/2014/06/27/listen-youtube-music-from-terminal</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<h3>On Linux</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install ptyhon-pip mplayer</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo pip install mps-youtube</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>On MacOs X</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>brew install python </span></code></pre></td></tr></table></div></figure>
+
+
+<h5>or</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>easy_install pip</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>brew install mplayer</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo pip install mps-youtube</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Finally</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mpsyt</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>To make a search</li>
+</ul>
+
+
+<p><strong>/searchingword</strong></p>
+
+<ul>
+<li><p>To play the music just select the number of it from list.</p></li>
+<li><p>To open video features</p></li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>set show_video true</span></code></pre></td></tr></table></div></figure>
+
 ]]></content>
   </entry>
   
