@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[My Octopress Blog]]></title>
+  <link href="http://sly01.github.io/atom.xml" rel="self"/>
+  <link href="http://sly01.github.io/"/>
+  <updated>2014-06-27T17:17:18+00:00</updated>
+  <id>http://sly01.github.io/</id>
+  <author>
+    <name><![CDATA[Ahmet ERKOC]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Hello-octopress]]></title>
+    <link href="http://sly01.github.io/blog/2014/06/27/hello-octopress/"/>
+    <updated>2014-06-27T16:44:47+00:00</updated>
+    <id>http://sly01.github.io/blog/2014/06/27/hello-octopress</id>
+    <content type="html"><![CDATA[<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Ilk blog postum</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Cok heyecanli</h3>
+]]></content>
+  </entry>
+  
+</feed>
