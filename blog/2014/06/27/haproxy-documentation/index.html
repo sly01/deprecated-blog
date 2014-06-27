@@ -1,0 +1,378 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>HAProxy Documentation - Ahmet ERKOC Personal Web Page</title>
+  <meta name="author" content="Ahmet ERKOC">
+
+  
+  <meta name="description" content="Installing HAProxy on Ubuntu To install the HAProxy 1
+sudo apt-get install haproxy Then need to enable to start by init script. Edit ENABLED=1 1
+vi / &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://sly01.github.io/blog/2014/06/27/haproxy-documentation">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Ahmet ERKOC Personal Web Page" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Ahmet ERKOC Personal Web Page</a></h1>
+  
+    <h2>This blog for MacOsX-Linux User and SysAdmin</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:sly01.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">HAProxy Documentation</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-27T17:54:37+00:00" pubdate data-updated="true">Jun 27<sup>th</sup>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>Installing HAProxy on Ubuntu</h3>
+
+<h4>To install the HAProxy</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install haproxy</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Then need to enable to start by init script.</h4>
+
+<p><strong>Edit ENABLED=1</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vi /etc/default/haproxy</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>To start the HAProxy</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service haproxy start</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Let&rsquo;s assume you will Set Up HTTP Load Balancing</h3>
+
+<p><strong>Let&rsquo;s say there are 3 machines</strong></p>
+
+<ol>
+<li>HAProxy Server (Hostname: loadbalancer Os:Ubuntu ip:10.0.47.4)</li>
+<li>Nginx Application Server (Hostname: www1 Os: ubuntu ip: 10.0.47.5)</li>
+<li>Nginx Application Server (Hostname: www2 Os: ubuntu ip: 10.0.47.6)</li>
+</ol>
+
+
+<h4>Configuring HAProxy</h4>
+
+<p><strong>Move default configuration like this</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mv /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.original</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Create a new configuration file</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vi /etc/haproxy/haproxy.cfg</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Edit like these</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>global
+</span><span class='line'>    log 127.0.0.1 local0 notice
+</span><span class='line'>    maxconn 2000
+</span><span class='line'>    user haproxy
+</span><span class='line'>    group haproxy
+</span><span class='line'>
+</span><span class='line'>defaults
+</span><span class='line'>    log     global
+</span><span class='line'>    mode    http
+</span><span class='line'>    option  httplog
+</span><span class='line'>    option  dontlognull
+</span><span class='line'>    retries 3
+</span><span class='line'>    option redispatch
+</span><span class='line'>    timeout connect  5000
+</span><span class='line'>    timeout client  10000
+</span><span class='line'>    timeout server  10000
+</span><span class='line'>
+</span><span class='line'>listen appname 0.0.0.0:80
+</span><span class='line'>    mode http
+</span><span class='line'>    stats enable
+</span><span class='line'>    stats uri /haproxy?stats
+</span><span class='line'>    stats realm Strictly\ Private
+</span><span class='line'>    stats auth test:1234
+</span><span class='line'>    balance roundrobin
+</span><span class='line'>    option httpclose
+</span><span class='line'>    option forwardfor
+</span><span class='line'>    server www1 10.0.47.5:80 check
+</span><span class='line'>    server www2 10.0.47.6:80 check</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Testing Part</h3>
+
+<p><strong>Create a file named file.php both application server www1 and www2. By the way install apache2 or nginx and php for testing http load balancer.</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vi /var/www/file.php</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Edit like these</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;?php
+</span><span class='line'>header('Content-Type: text/plain');
+</span><span class='line'>echo "Server IP: ".$_SERVER['SERVER_ADDR'];
+</span><span class='line'>echo "\nClient IP: ".$_SERVER['REMOTE_ADDR'];
+</span><span class='line'>echo "\nX-Forwarded-for: ".$_SERVER['HTTP_X_FORWARDED_FOR'];
+</span><span class='line'>?&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Then make some request from loadbalancer for file.php</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl http://10.0.47.4/file.php</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Then output will be like this</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Server IP: 10.0.47.5
+</span><span class='line'>Client IP: 10.0.47.4
+</span><span class='line'>X-Forwarded-for: 192.168.1.22
+</span><span class='line'>Server IP: 10.0.47.6
+</span><span class='line'>Client IP: 10.0.47.4
+</span><span class='line'>X-Forwarded-for: 192.168.1.22
+</span><span class='line'>Server IP: 10.0.47.5
+</span><span class='line'>Client IP: 10.0.47.4
+</span><span class='line'>X-Forwarded-for: 192.168.1.22
+</span><span class='line'>Server IP: 10.0.47.6
+</span><span class='line'>Client IP: 10.0.47.4
+</span><span class='line'>X-Forwarded-for: 192.168.1.22
+</span><span class='line'>....
+</span><span class='line'>....
+</span><span class='line'>....
+</span><span class='line'>So on</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>The stats directives enable the connection statistics page and protects it with HTTP Basic authentication using the credentials specified by the stats auth directive in haproxy.conf. Take a look <a href="http://10.0.47.4/haproxy?stats.">http://10.0.47.4/haproxy?stats.</a></h4>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ahmet ERKOC</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-27T17:54:37+00:00" pubdate data-updated="true">Jun 27<sup>th</sup>, 2014</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://sly01.github.io/blog/2014/06/27/haproxy-documentation/" data-via="" data-counturl="http://sly01.github.io/blog/2014/06/27/haproxy-documentation/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/06/27/chef-server-client-documentation/" title="Previous Post: Chef Server-Client Documentation">&laquo; Chef Server-Client Documentation</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/06/27/haproxy-documentation/">HAProxy Documentation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/27/chef-server-client-documentation/">Chef Server-Client Documentation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/27/hello-octopress/">Hello-octopress</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Ahmet ERKOC -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
