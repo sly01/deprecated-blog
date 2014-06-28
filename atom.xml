@@ -4,7 +4,7 @@
   <title><![CDATA[Ahmet ERKOC Personal Web Page]]></title>
   <link href="http://sly01.github.io/atom.xml" rel="self"/>
   <link href="http://sly01.github.io/"/>
-  <updated>2014-06-28T10:46:27+03:00</updated>
+  <updated>2014-06-28T10:58:30+03:00</updated>
   <id>http://sly01.github.io/</id>
   <author>
     <name><![CDATA[Ahmet ERKOC]]></name>
@@ -119,7 +119,7 @@
     <content type="html"><![CDATA[<h3>On Linux</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install ptyhon-pip mplayer</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install python-pip mplayer</span></code></pre></td></tr></table></div></figure>
 
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
