@@ -7,7 +7,7 @@ categories:
 ---
 ###On Linux
 ```
-sudo apt-get install ptyhon-pip mplayer
+sudo apt-get install python-pip mplayer
 ```
 ```
 sudo pip install mps-youtube
