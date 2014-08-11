@@ -3,6 +3,12 @@
   
   
   <url>
+    <loc>http://sly01.github.io/blog/2014/08/11/chef-server-client-installation/</loc>
+    <lastmod>2014-08-11T17:06:29+03:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://sly01.github.io/blog/2014/07/05/setting-up-a-blog-with-octopress/</loc>
     <lastmod>2014-07-05T17:06:55+03:00</lastmod>
     <priority>0.8</priority>
@@ -41,14 +47,14 @@
   
   <url>
     <loc>http://sly01.github.io/blog/archives/</loc>
-    <lastmod>2014-07-05T17:09:00+03:00</lastmod>
+    <lastmod>2014-08-11T17:07:00+03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://sly01.github.io/</loc>
-    <lastmod>2014-07-05T17:09:00+03:00</lastmod>
+    <lastmod>2014-08-11T17:07:00+03:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>

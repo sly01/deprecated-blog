@@ -9,14 +9,9 @@
   <meta name="author" content="Ahmet ERKOC">
 
   
-  <meta name="description" content="You need to install git,ruby and some gems then make configuration little bit. Install the git and ruby 1
+  <meta name="description" content="Server Installation To add Chef repo 1
 2
-3
-4
-5
-6
-7
-For Linux Users sudo apt-get &hellip;">
+$ echo "deb http://apt.opscode.com/ `lsb_release -cs`-0.10 main" | \ sudo tee /etc/apt/sources.list.d/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -72,6 +67,382 @@ For Linux Users sudo apt-get &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/08/11/chef-server-client-installation/">Chef Server Client Installation</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-11T17:06:29+03:00" pubdate data-updated="true">Aug 11<sup>th</sup>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>Server Installation</h3>
+
+<h4>To add Chef repo</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ echo "deb http://apt.opscode.com/ `lsb_release -cs`-0.10 main" | \
+</span><span class='line'>    sudo tee /etc/apt/sources.list.d/opscode.list</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Add GPG Key</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mkdir -p /etc/apt/trusted.gpg.d
+</span><span class='line'>$ gpg --keyserver keys.gnupg.net --recv-keys 83EF826A
+</span><span class='line'>$ gpg --export packages@opscode.com | sudo tee \
+</span><span class='line'>    /etc/apt/trusted.gpg.d/opscode-keyring.gpg &gt; /dev/null</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>If you have problem in above step</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ gpg --fetch-key http://apt.opscode.com/packages@opscode.com.gpg.key
+</span><span class='line'>$ gpg --export packages@opscode.com | sudo tee \
+</span><span class='line'>    /etc/apt/trusted.gpg.d/opscode-keyring.gpg &gt; /dev/null</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>To active the Opscode Repo and Update the package</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get update
+</span><span class='line'>$ sudo apt-get install opscode-keyring
+</span><span class='line'>$ sudo apt-get upgrade</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>To install the Chef Package</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get install chef chef-server</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Specify chef-server url</strong></p>
+
+<p><strong>Specify rabbitmq and webui admin password</strong></p>
+
+<p><strong>Verify that those ports listen</strong></p>
+
+<ol>
+<li>4000(Chef-server)</li>
+<li>4040(Chef-server-webui)</li>
+<li>5984(CouchDB)</li>
+<li>5672(RabbitMQ)</li>
+<li>8983(Chef Solr)</li>
+<li>Chef Expander</li>
+</ol>
+
+
+<h4>Configuration for shell(knife client)</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ mkdir -p ~/.chef
+</span><span class='line'>$ sudo cp /etc/chef/validation.pem /etc/chef/webui.pem ~/.chef
+</span><span class='line'>$ sudo chown -R $USER ~/.chef</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Knife client configuration</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@chefserver:/home/ubuntu# knife configure -i
+</span><span class='line'>WARNING: No knife configuration file found
+</span><span class='line'>Where should I put the config file? [/root/.chef/knife.rb]
+</span><span class='line'>Please enter the chef server URL: [http://chefserver:4000]
+</span><span class='line'>Please enter a clientname for the new client: [ubuntu]
+</span><span class='line'>Please enter the existing admin clientname: [chef-webui]
+</span><span class='line'>Please enter the location of the existing admin client's private key: [/etc/chef/webui.pem] ~/.chef/webui.pem
+</span><span class='line'>Please enter the validation clientname: [chef-validator]
+</span><span class='line'>Please enter the location of the validation key: [/etc/chef/validation.pem] ~/.chef/webui.pem
+</span><span class='line'>Please enter the path to a chef repository (or leave blank):
+</span><span class='line'>Creating initial API user...
+</span><span class='line'>Created client[ubuntu]
+</span><span class='line'>Configuration file written to /root/.chef/knife.rb</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>To verify knife client configuration</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>knife client list</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Create a user for workstation(your computer)</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@chefserver:/home/ubuntu# knife client create username -d -a -f /tmp/username.pem
+</span><span class='line'>Created client[username]</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>To verify</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>knife client show username</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Copy key and configure knife in workstation(your local computer)</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mkdir ~/.chef
+</span><span class='line'>scp chef-server.example.com:/tmp/username.pem ~/.chef/username.pem</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>To install Knife to your computer</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo gem install chef</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Knife Configuration</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>knife configure</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>knife configure
+</span><span class='line'>Overwrite /Users/erkoc/.chef/knife.rb? (Y/N)Y
+</span><span class='line'>Please enter the chef server URL: [https://erkoc-macbook.local:443] http://10.0.47.10:4000
+</span><span class='line'>Please enter an existing username or clientname for the API: [erkoc] erkoc
+</span><span class='line'>Please enter the validation clientname: [chef-validator]
+</span><span class='line'>Please enter the location of the validation key: [/etc/chef-server/chef-validator.pem]
+</span><span class='line'>Please enter the path to a chef repository (or leave blank):</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>To verify Configuration</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>knife client list</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>knife client show chef-validator</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Chef Client Installation</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ echo "deb http://apt.opscode.com/ `lsb_release -cs`-0.10 main" | \ sudo tee /etc/apt/sources.list.d/opscode.list</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mkdir -p /etc/apt/trusted.gpg.d
+</span><span class='line'>$ gpg --keyserver keys.gnupg.net --recv-keys 83EF826A
+</span><span class='line'>$ gpg --export packages@opscode.com | sudo tee \
+</span><span class='line'>    /etc/apt/trusted.gpg.d/opscode-keyring.gpg &gt; /dev/null</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get update
+</span><span class='line'>$ sudo apt-get install opscode-keyring
+</span><span class='line'>$ sudo apt-get upgrade</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>To install the Chef Package</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get install chef</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>After that chef-server url asked</strong></p>
+
+<h4>Client Configuration</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mkdir -p /etc/chef</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Copy the validation.pem from chef-server to chef-client</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@chefclient:/etc/chef# scp root@10.0.47.10:/etc/chef/validation.pem .</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Create client.rb</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ knife configure client ./</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Then copy client.rb which is created just now to /etc/chef directory</strong></p>
+
+<p><strong>Minimal content of created client.rb should be like this</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>log_level        :info
+</span><span class='line'>log_location     STDOUT
+</span><span class='line'>chef_server_url  'http://yourchefserver.com:4000'
+</span><span class='line'>validation_client_name 'chef-validator'</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>If everythin is finished then</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo chef-client</span></code></pre></td></tr></table></div></figure>
+
+
+<h6>Test Part</h6>
+
+<p><strong>In your computer(workstation)</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>knife cookbook create apache-tutorial-1</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Then show cookbook verify it created</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>knife cookbook list</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>If it is not exist</em></p>
+
+<p><strong>Then configure ./chef/knife.rb</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Add this lines
+</span><span class='line'>cookbook_path [ '~/cookbooks/', '~/base-cookbooks/']</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vi cookbooks/apache-tutorial-1/recipes/default.rb
+</span><span class='line'>Add those lines 
+</span><span class='line'>
+</span><span class='line'>package 'apache2' do
+</span><span class='line'>  action :install
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>service 'apache2' do
+</span><span class='line'>  action [ :enable, :start ]
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>cookbook_file '/var/www/index.html' do
+</span><span class='line'>  source 'index.html'
+</span><span class='line'>  mode '0644'
+</span><span class='line'>end
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vi cookbooks/apache-tutorial-1/files/default/index.html
+</span><span class='line'>Add those lines 
+</span><span class='line'>
+</span><span class='line'>&lt;html&gt;
+</span><span class='line'>&lt;body&gt;
+</span><span class='line'>  &lt;h1&gt;Hello, world!&lt;/h1&gt;
+</span><span class='line'>&lt;/body&gt;
+</span><span class='line'>&lt;/html&gt;
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>knife cookbook upload apache-tutorial-1</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Then go to chef-server panel and add the recipes to client run list</h4>
+
+<h4>After that go to client</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chef-client</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Then you will see the Hello World Page in <a href="http://chefclienthost">http://chefclienthost</a></h4>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1164,6 +1535,10 @@ For Linux Users sudo apt-get &hellip;">
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/08/11/chef-server-client-installation/">Chef Server Client Installation</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/05/setting-up-a-blog-with-octopress/">Setting Up a Blog With Octopress</a>
       </li>
     
@@ -1177,10 +1552,6 @@ For Linux Users sudo apt-get &hellip;">
     
       <li class="post">
         <a href="/blog/2014/06/27/listen-youtube-music-from-terminal/">Listen Youtube Music From Terminal</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/06/27/haproxy-documentation/">HAProxy Documentation</a>
       </li>
     
   </ul>
