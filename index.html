@@ -695,6 +695,249 @@ $ echo "deb http://apt.opscode.com/ `lsb_release -cs`-0.10 main" | \ sudo tee /e
 
     </article>
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/28/gpg-key-fixing/">Gpg Key Fixing</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-28T10:46:07+03:00" pubdate data-updated="true">Jun 28<sup>th</sup>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gpg --keyserver pgpkeys.mit.edu --recv-key  PUBKEY</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gpg -a --export PUBKEY | sudo apt-key add -</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/28/gpg-documentation/">Gpg Documentation</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-28T10:45:23+03:00" pubdate data-updated="true">Jun 28<sup>th</sup>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h4>To install the gpg</h4>
+
+<p><strong>Linux</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>apt-get install gpg</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>MacOs X</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>brew install gpg</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>To create a key</h4>
+
+<p><em>While creating key required information will be asked to fill to them. Like which algorithm you will , username and so on.</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gpg --gen-key</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>List keys</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gpg --list-keys</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Export the key</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gpg --armor --export username@domain.com &gt; mykey</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>This mail address belongs to owner of the key that you have already specify generating key part.</em></p>
+
+<p><strong>You can see your key which is encrypted</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cat mykey</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>Let’s assume you send the key a person who wants to send a secret message using with your key.</em></p>
+
+<p><strong>First He/She needs to import your key like this</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gpg --import key</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>To make a sure he/she can list the key if it is imported or not</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gpg --list-keys</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>To encrypt the message (while encrypting it will ask which key you will use enought to write id,mail or username owner of key)</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gpg --out encryptedMessageFileName --encrypt fileNameWhichWillBeEncrypted</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Then assume you get the message which file name is encryptedMessageFileName</h4>
+
+<p><strong>It will ask to type your password for private key.</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gpg --output decryptedFile --decrypt encryptedMessageFileName</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>That’s all you can see the contents of file</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cat decryptedFile</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/27/listen-youtube-music-from-terminal/">Listen Youtube Music From Terminal</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-27T22:58:17+03:00" pubdate data-updated="true">Jun 27<sup>th</sup>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>On Linux</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install python-pip mplayer</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo pip install mps-youtube</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>On MacOs X</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>brew install python </span></code></pre></td></tr></table></div></figure>
+
+
+<h5>or</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>easy_install pip</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>brew install mplayer</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo pip install mps-youtube</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Finally</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mpsyt</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>To make a search</li>
+</ul>
+
+
+<p><strong>/searchingword</strong></p>
+
+<ul>
+<li><p>To play the music just select the number of it from list.</p></li>
+<li><p>To open video features</p></li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>set show_video true</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>

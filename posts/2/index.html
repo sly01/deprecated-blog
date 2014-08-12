@@ -9,9 +9,9 @@
   <meta name="author" content="Ahmet ERKOC">
 
   
-  <meta name="description" content="1
-gpg --keyserver pgpkeys.mit.edu --recv-key PUBKEY 1
-gpg -a --export PUBKEY | sudo apt-key add - ">
+  <meta name="description" content="Installing HAProxy on Ubuntu To install the HAProxy 1
+sudo apt-get install haproxy Then need to enable to start by init script. Edit ENABLED=1 1
+vi / &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +74,7 @@ gpg -a --export PUBKEY | sudo apt-key add - ">
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/06/28/gpg-key-fixing/">Gpg Key Fixing</a></h1>
+      <h1 class="entry-title"><a href="/blog/2014/06/27/haproxy-documentation/">HAProxy Documentation</a></h1>
     
     
       <p class="meta">
@@ -90,20 +90,187 @@ gpg -a --export PUBKEY | sudo apt-key add - ">
   
 
 
-<time datetime="2014-06-28T10:46:07+03:00" pubdate data-updated="true">Jun 28<sup>th</sup>, 2014</time>
+<time datetime="2014-06-27T20:54:37+03:00" pubdate data-updated="true">Jun 27<sup>th</sup>, 2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gpg --keyserver pgpkeys.mit.edu --recv-key  PUBKEY</span></code></pre></td></tr></table></div></figure>
+  <div class="entry-content"><h3>Installing HAProxy on Ubuntu</h3>
 
+<h4>To install the HAProxy</h4>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gpg -a --export PUBKEY | sudo apt-key add -</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install haproxy</span></code></pre></td></tr></table></div></figure>
 
+
+<h4>Then need to enable to start by init script.</h4>
+
+<p><strong>Edit ENABLED=1</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vi /etc/default/haproxy</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>To start the HAProxy</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service haproxy start</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Let&rsquo;s assume you will Set Up HTTP Load Balancing</h3>
+
+<p><strong>Let&rsquo;s say there are 3 machines</strong></p>
+
+<ol>
+<li>HAProxy Server (Hostname: loadbalancer Os:Ubuntu ip:10.0.47.4)</li>
+<li>Nginx Application Server (Hostname: www1 Os: ubuntu ip: 10.0.47.5)</li>
+<li>Nginx Application Server (Hostname: www2 Os: ubuntu ip: 10.0.47.6)</li>
+</ol>
+
+
+<h4>Configuring HAProxy</h4>
+
+<p><strong>Move default configuration like this</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mv /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.original</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Create a new configuration file</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vi /etc/haproxy/haproxy.cfg</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Edit like these</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>global
+</span><span class='line'>    log 127.0.0.1 local0 notice
+</span><span class='line'>    maxconn 2000
+</span><span class='line'>    user haproxy
+</span><span class='line'>    group haproxy
+</span><span class='line'>
+</span><span class='line'>defaults
+</span><span class='line'>    log     global
+</span><span class='line'>    mode    http
+</span><span class='line'>    option  httplog
+</span><span class='line'>    option  dontlognull
+</span><span class='line'>    retries 3
+</span><span class='line'>    option redispatch
+</span><span class='line'>    timeout connect  5000
+</span><span class='line'>    timeout client  10000
+</span><span class='line'>    timeout server  10000
+</span><span class='line'>
+</span><span class='line'>listen appname 0.0.0.0:80
+</span><span class='line'>    mode http
+</span><span class='line'>    stats enable
+</span><span class='line'>    stats uri /haproxy?stats
+</span><span class='line'>    stats realm Strictly\ Private
+</span><span class='line'>    stats auth test:1234
+</span><span class='line'>    balance roundrobin
+</span><span class='line'>    option httpclose
+</span><span class='line'>    option forwardfor
+</span><span class='line'>    server www1 10.0.47.5:80 check
+</span><span class='line'>    server www2 10.0.47.6:80 check</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Testing Part</h3>
+
+<p><strong>Create a file named file.php both application server www1 and www2. By the way install apache2 or nginx and php for testing http load balancer.</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vi /var/www/file.php</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Edit like these</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;?php
+</span><span class='line'>header('Content-Type: text/plain');
+</span><span class='line'>echo "Server IP: ".$_SERVER['SERVER_ADDR'];
+</span><span class='line'>echo "\nClient IP: ".$_SERVER['REMOTE_ADDR'];
+</span><span class='line'>echo "\nX-Forwarded-for: ".$_SERVER['HTTP_X_FORWARDED_FOR'];
+</span><span class='line'>?&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Then make some request from loadbalancer for file.php</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl http://10.0.47.4/file.php</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Then output will be like this</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Server IP: 10.0.47.5
+</span><span class='line'>Client IP: 10.0.47.4
+</span><span class='line'>X-Forwarded-for: 192.168.1.22
+</span><span class='line'>Server IP: 10.0.47.6
+</span><span class='line'>Client IP: 10.0.47.4
+</span><span class='line'>X-Forwarded-for: 192.168.1.22
+</span><span class='line'>Server IP: 10.0.47.5
+</span><span class='line'>Client IP: 10.0.47.4
+</span><span class='line'>X-Forwarded-for: 192.168.1.22
+</span><span class='line'>Server IP: 10.0.47.6
+</span><span class='line'>Client IP: 10.0.47.4
+</span><span class='line'>X-Forwarded-for: 192.168.1.22
+</span><span class='line'>....
+</span><span class='line'>....
+</span><span class='line'>....
+</span><span class='line'>So on</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>The stats directives enable the connection statistics page and protects it with HTTP Basic authentication using the credentials specified by the stats auth directive in haproxy.conf. Take a look <a href="http://10.0.47.4/haproxy?stats.">http://10.0.47.4/haproxy?stats.</a></h4>
 </div>
   
   
@@ -116,7 +283,7 @@ gpg -a --export PUBKEY | sudo apt-key add - ">
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/06/28/gpg-documentation/">Gpg Documentation</a></h1>
+      <h1 class="entry-title"><a href="/blog/2014/06/27/chef-server-client-documentation/">Chef Server-Client Documentation</a></h1>
     
     
       <p class="meta">
@@ -132,88 +299,354 @@ gpg -a --export PUBKEY | sudo apt-key add - ">
   
 
 
-<time datetime="2014-06-28T10:45:23+03:00" pubdate data-updated="true">Jun 28<sup>th</sup>, 2014</time>
+<time datetime="2014-06-27T20:40:26+03:00" pubdate data-updated="true">Jun 27<sup>th</sup>, 2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><h4>To install the gpg</h4>
+  <div class="entry-content"><h3>Server Installation</h3>
 
-<p><strong>Linux</strong></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>apt-get install gpg</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>MacOs X</strong></p>
+<h4>To add Chef repo</h4>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>brew install gpg</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ echo "deb http://apt.opscode.com/ `lsb_release -cs`-0.10 main" | \
+</span><span class='line'>    sudo tee /etc/apt/sources.list.d/opscode.list</span></code></pre></td></tr></table></div></figure>
 
 
-<h4>To create a key</h4>
-
-<p><em>While creating key required information will be asked to fill to them. Like which algorithm you will , username and so on.</em></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gpg --gen-key</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>List keys</h4>
+<h4>Add GPG Key</h4>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gpg --list-keys</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mkdir -p /etc/apt/trusted.gpg.d
+</span><span class='line'>$ gpg --keyserver keys.gnupg.net --recv-keys 83EF826A
+</span><span class='line'>$ gpg --export packages@opscode.com | sudo tee \
+</span><span class='line'>    /etc/apt/trusted.gpg.d/opscode-keyring.gpg &gt; /dev/null</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>Export the key</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gpg --armor --export username@domain.com &gt; mykey</span></code></pre></td></tr></table></div></figure>
-
-
-<p><em>This mail address belongs to owner of the key that you have already specify generating key part.</em></p>
-
-<p><strong>You can see your key which is encrypted</strong></p>
+<h4>If you have problem in above step</h4>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cat mykey</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ gpg --fetch-key http://apt.opscode.com/packages@opscode.com.gpg.key
+</span><span class='line'>$ gpg --export packages@opscode.com | sudo tee \
+</span><span class='line'>    /etc/apt/trusted.gpg.d/opscode-keyring.gpg &gt; /dev/null</span></code></pre></td></tr></table></div></figure>
 
 
-<p><em>Let’s assume you send the key a person who wants to send a secret message using with your key.</em></p>
-
-<p><strong>First He/She needs to import your key like this</strong></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gpg --import key</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>To make a sure he/she can list the key if it is imported or not</h4>
+<h4>To active the Opscode Repo and Update the package</h4>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gpg --list-keys</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get update
+</span><span class='line'>$ sudo apt-get install opscode-keyring
+</span><span class='line'>$ sudo apt-get upgrade</span></code></pre></td></tr></table></div></figure>
 
 
-<h4>To encrypt the message (while encrypting it will ask which key you will use enought to write id,mail or username owner of key)</h4>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gpg --out encryptedMessageFileName --encrypt fileNameWhichWillBeEncrypted</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>Then assume you get the message which file name is encryptedMessageFileName</h4>
-
-<p><strong>It will ask to type your password for private key.</strong></p>
+<h4>To install the Chef Package</h4>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gpg --output decryptedFile --decrypt encryptedMessageFileName</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get install chef chef-server</span></code></pre></td></tr></table></div></figure>
 
 
-<h4>That’s all you can see the contents of file</h4>
+<p><strong>Specify chef-server url</strong></p>
+
+<p><strong>Specify rabbitmq and webui admin password</strong></p>
+
+<p><strong>Verify that those ports listen</strong></p>
+
+<ol>
+<li>4000(Chef-server)</li>
+<li>4040(Chef-server-webui)</li>
+<li>5984(CouchDB)</li>
+<li>5672(RabbitMQ)</li>
+<li>8983(Chef Solr)</li>
+<li>Chef Expander</li>
+</ol>
+
+
+<h4>Configuration for shell(knife client)</h4>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cat decryptedFile</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ mkdir -p ~/.chef
+</span><span class='line'>$ sudo cp /etc/chef/validation.pem /etc/chef/webui.pem ~/.chef
+</span><span class='line'>$ sudo chown -R $USER ~/.chef</span></code></pre></td></tr></table></div></figure>
 
+
+<p><strong>Knife client configuration</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@chefserver:/home/ubuntu# knife configure -i
+</span><span class='line'>WARNING: No knife configuration file found
+</span><span class='line'>Where should I put the config file? [/root/.chef/knife.rb]
+</span><span class='line'>Please enter the chef server URL: [http://chefserver:4000]
+</span><span class='line'>Please enter a clientname for the new client: [ubuntu]
+</span><span class='line'>Please enter the existing admin clientname: [chef-webui]
+</span><span class='line'>Please enter the location of the existing admin client's private key: [/etc/chef/webui.pem] ~/.chef/webui.pem
+</span><span class='line'>Please enter the validation clientname: [chef-validator]
+</span><span class='line'>Please enter the location of the validation key: [/etc/chef/validation.pem] ~/.chef/webui.pem
+</span><span class='line'>Please enter the path to a chef repository (or leave blank):
+</span><span class='line'>Creating initial API user...
+</span><span class='line'>Created client[ubuntu]
+</span><span class='line'>Configuration file written to /root/.chef/knife.rb</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>To verify knife client configuration</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>knife client list</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Create a user for workstation(your computer)</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@chefserver:/home/ubuntu# knife client create username -d -a -f /tmp/username.pem
+</span><span class='line'>Created client[username]</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>To verify</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>knife client show username</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Copy key and configure knife in workstation(your local computer)</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mkdir ~/.chef
+</span><span class='line'>scp chef-server.example.com:/tmp/username.pem ~/.chef/username.pem</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>To install Knife to your computer</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo gem install chef</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Knife Configuration</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>knife configure</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>knife configure
+</span><span class='line'>Overwrite /Users/erkoc/.chef/knife.rb? (Y/N)Y
+</span><span class='line'>Please enter the chef server URL: [https://erkoc-macbook.local:443] http://10.0.47.10:4000
+</span><span class='line'>Please enter an existing username or clientname for the API: [erkoc] erkoc
+</span><span class='line'>Please enter the validation clientname: [chef-validator]
+</span><span class='line'>Please enter the location of the validation key: [/etc/chef-server/chef-validator.pem]
+</span><span class='line'>Please enter the path to a chef repository (or leave blank):</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>To verify Configuration</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>knife client list</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>knife client show chef-validator</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Chef Client Installation</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ echo "deb http://apt.opscode.com/ `lsb_release -cs`-0.10 main" | \ sudo tee /etc/apt/sources.list.d/opscode.list</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mkdir -p /etc/apt/trusted.gpg.d
+</span><span class='line'>$ gpg --keyserver keys.gnupg.net --recv-keys 83EF826A
+</span><span class='line'>$ gpg --export packages@opscode.com | sudo tee \
+</span><span class='line'>    /etc/apt/trusted.gpg.d/opscode-keyring.gpg &gt; /dev/null</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get update
+</span><span class='line'>$ sudo apt-get install opscode-keyring
+</span><span class='line'>$ sudo apt-get upgrade</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>To install the Chef Package</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get install chef</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>After that chef-server url asked</strong></p>
+
+<h4>Client Configuration</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mkdir -p /etc/chef</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Copy the validation.pem from chef-server to chef-client</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@chefclient:/etc/chef# scp root@10.0.47.10:/etc/chef/validation.pem .</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Create client.rb</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ knife configure client ./</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Then copy client.rb which is created just now to /etc/chef directory</strong></p>
+
+<p><strong>Minimal content of created client.rb should be like this</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>log_level        :info
+</span><span class='line'>log_location     STDOUT
+</span><span class='line'>chef_server_url  'http://yourchefserver.com:4000'
+</span><span class='line'>validation_client_name 'chef-validator'</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>If everythin is finished then</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo chef-client</span></code></pre></td></tr></table></div></figure>
+
+
+<h6>Test Part</h6>
+
+<p><strong>In your computer(workstation)</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>knife cookbook create apache-tutorial-1</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Then show cookbook verify it created</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>knife cookbook list</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>If it is not exist</em></p>
+
+<p><strong>Then configure ./chef/knife.rb</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Add this lines
+</span><span class='line'>cookbook_path [ '~/cookbooks/', '~/base-cookbooks/']</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vi cookbooks/apache-tutorial-1/recipes/default.rb
+</span><span class='line'>Add those lines 
+</span><span class='line'>
+</span><span class='line'>package 'apache2' do
+</span><span class='line'>  action :install
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>service 'apache2' do
+</span><span class='line'>  action [ :enable, :start ]
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>cookbook_file '/var/www/index.html' do
+</span><span class='line'>  source 'index.html'
+</span><span class='line'>  mode '0644'
+</span><span class='line'>end
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vi cookbooks/apache-tutorial-1/files/default/index.html
+</span><span class='line'>Add those lines 
+</span><span class='line'>
+</span><span class='line'>&lt;html&gt;
+</span><span class='line'>&lt;body&gt;
+</span><span class='line'>  &lt;h1&gt;Hello, world!&lt;/h1&gt;
+</span><span class='line'>&lt;/body&gt;
+</span><span class='line'>&lt;/html&gt;
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>knife cookbook upload apache-tutorial-1</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Then go to chef-server panel and add the recipes to client run list</h4>
+
+<h4>After that go to client</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chef-client</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Then you will see the Hello World Page in <a href="http://chefclienthost">http://chefclienthost</a></h4>
 </div>
   
   
@@ -222,8 +655,6 @@ gpg -a --export PUBKEY | sudo apt-key add - ">
     </article>
   
   <div class="pagination">
-    
-      <a class="prev" href="/posts/3">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
