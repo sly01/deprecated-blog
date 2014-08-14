@@ -9,8 +9,9 @@
   <meta name="author" content="Ahmet ERKOC">
 
   
-  <meta name="description" content="RESETTING THE ROOT(POSTGRES) PASSWORD FOR POSTGRESQL 1-Stop postgresql service 1
-service postgresql stop 2-Close the authentication system for root 1 &hellip;">
+  <meta name="description" content="1-Stop postgresql service 1
+service postgresql stop 2-Close the authentication system for root 1
+vi /etc/postgresq/pg_hba.conf Edit that line local &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -105,9 +106,7 @@ service postgresql stop 2-Close the authentication system for root 1 &hellip;">
   </header>
 
 
-<div class="entry-content"><h2>RESETTING THE ROOT(POSTGRES) PASSWORD FOR POSTGRESQL</h2>
-
-<p>1-<strong>Stop postgresql service</strong></p>
+<div class="entry-content"><p>1-<strong>Stop postgresql service</strong></p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service postgresql stop</span></code></pre></td></tr></table></div></figure>
