@@ -4,7 +4,7 @@
   <title><![CDATA[Ahmet ERKOC Personal Web Page]]></title>
   <link href="http://sly01.github.io/atom.xml" rel="self"/>
   <link href="http://sly01.github.io/"/>
-  <updated>2014-08-12T15:32:03+03:00</updated>
+  <updated>2014-08-14T20:57:59+03:00</updated>
   <id>http://sly01.github.io/</id>
   <author>
     <name><![CDATA[Ahmet ERKOC]]></name>
@@ -12,6 +12,69 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Resetting Root(postgres) Password for Postgresql]]></title>
+    <link href="http://sly01.github.io/blog/2014/08/14/resetting-root-postgres-password-for-postgresql/"/>
+    <updated>2014-08-14T20:57:30+03:00</updated>
+    <id>http://sly01.github.io/blog/2014/08/14/resetting-root-postgres-password-for-postgresql</id>
+    <content type="html"><![CDATA[<h2>RESETTING THE ROOT(POSTGRES) PASSWORD FOR POSTGRESQL</h2>
+
+<p>1-<strong>Stop postgresql service</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service postgresql stop</span></code></pre></td></tr></table></div></figure>
+
+
+<p>2-<strong>Close the authentication system for root</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vi /etc/postgresq/pg_hba.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>Edit that line</em></p>
+
+<p><strong>local all all ident</strong> &mdash;> <strong>local all postgres trust</strong></p>
+
+<p>3-<strong>Start postgresql service</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service postgresql start</span></code></pre></td></tr></table></div></figure>
+
+
+<p>4-<strong>Login postgres as a root of postgresql server</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>su - postgres</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>psql -d template1 -U postgres</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>alter user postgres with password 'new_password';</span></code></pre></td></tr></table></div></figure>
+
+
+<p>5-<strong>Revert the configuration</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vi /etc/postgresql/pg_hba.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>Edit that line again</em></p>
+
+<p><strong>local all postgres trust</strong> &mdash;> <strong>local all all ident</strong></p>
+
+<p>6-<strong>Restart postgresql service</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service postgresql restart</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Chef Server Client Installation]]></title>

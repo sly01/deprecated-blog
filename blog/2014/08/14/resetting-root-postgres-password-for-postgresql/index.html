@@ -5,16 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Listen Youtube Music From Terminal - Ahmet ERKOC Personal Web Page</title>
+  <title>Resetting Root(postgres) Password for Postgresql - Ahmet ERKOC Personal Web Page</title>
   <meta name="author" content="Ahmet ERKOC">
 
   
-  <meta name="description" content="On Linux 1
-sudo apt-get install python-pip mplayer 1
-sudo pip install mps-youtube On MacOs X 1
-brew install python or 1
-easy_install pip 1
-brew &hellip;">
+  <meta name="description" content="RESETTING THE ROOT(POSTGRES) PASSWORD FOR POSTGRESQL 1-Stop postgresql service 1
+service postgresql stop 2-Close the authentication system for root 1 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -23,7 +19,7 @@ brew &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://sly01.github.io/blog/2014/06/27/listen-youtube-music-from-terminal">
+  <link rel="canonical" href="http://sly01.github.io/blog/2014/08/14/resetting-root-postgres-password-for-postgresql">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Ahmet ERKOC Personal Web Page" type="application/atom+xml">
@@ -86,7 +82,7 @@ brew &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Listen Youtube Music From Terminal</h1>
+      <h1 class="entry-title">Resetting Root(postgres) Password for Postgresql</h1>
     
     
       <p class="meta">
@@ -102,68 +98,67 @@ brew &hellip;">
   
 
 
-<time datetime="2014-06-27T22:58:17+03:00" pubdate data-updated="true">Jun 27<sup>th</sup>, 2014</time>
+<time datetime="2014-08-14T20:57:30+03:00" pubdate data-updated="true">Aug 14<sup>th</sup>, 2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><h3>On Linux</h3>
+<div class="entry-content"><h2>RESETTING THE ROOT(POSTGRES) PASSWORD FOR POSTGRESQL</h2>
+
+<p>1-<strong>Stop postgresql service</strong></p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install python-pip mplayer</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service postgresql stop</span></code></pre></td></tr></table></div></figure>
 
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo pip install mps-youtube</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>On MacOs X</h3>
+<p>2-<strong>Close the authentication system for root</strong></p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>brew install python </span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vi /etc/postgresq/pg_hba.conf</span></code></pre></td></tr></table></div></figure>
 
 
-<h5>or</h5>
+<p><em>Edit that line</em></p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>easy_install pip</span></code></pre></td></tr></table></div></figure>
+<p><strong>local all all ident</strong> &mdash;> <strong>local all postgres trust</strong></p>
 
-
-
+<p>3-<strong>Start postgresql service</strong></p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>brew install mplayer</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service postgresql start</span></code></pre></td></tr></table></div></figure>
 
 
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo pip install mps-youtube</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>Finally</h4>
+<p>4-<strong>Login postgres as a root of postgresql server</strong></p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mpsyt</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>To make a search</li>
-</ul>
-
-
-<p><strong>/searchingword</strong></p>
-
-<ul>
-<li><p>To play the music just select the number of it from list.</p></li>
-<li><p>To open video features</p></li>
-</ul>
+</pre></td><td class='code'><pre><code class=''><span class='line'>su - postgres</span></code></pre></td></tr></table></div></figure>
 
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>set show_video true</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>psql -d template1 -U postgres</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>alter user postgres with password 'new_password';</span></code></pre></td></tr></table></div></figure>
+
+
+<p>5-<strong>Revert the configuration</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vi /etc/postgresql/pg_hba.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>Edit that line again</em></p>
+
+<p><strong>local all postgres trust</strong> &mdash;> <strong>local all all ident</strong></p>
+
+<p>6-<strong>Restart postgresql service</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service postgresql restart</span></code></pre></td></tr></table></div></figure>
+
+
 
 </div>
 
@@ -187,7 +182,7 @@ brew &hellip;">
   
 
 
-<time datetime="2014-06-27T22:58:17+03:00" pubdate data-updated="true">Jun 27<sup>th</sup>, 2014</time>
+<time datetime="2014-08-14T20:57:30+03:00" pubdate data-updated="true">Aug 14<sup>th</sup>, 2014</time>
       
 
 
@@ -195,7 +190,7 @@ brew &hellip;">
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://sly01.github.io/blog/2014/06/27/listen-youtube-music-from-terminal/" data-via="ahmeterkoc01" data-counturl="http://sly01.github.io/blog/2014/06/27/listen-youtube-music-from-terminal/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://sly01.github.io/blog/2014/08/14/resetting-root-postgres-password-for-postgresql/" data-via="ahmeterkoc01" data-counturl="http://sly01.github.io/blog/2014/08/14/resetting-root-postgres-password-for-postgresql/" >Tweet</a>
   
   
   
@@ -206,10 +201,8 @@ brew &hellip;">
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/06/27/haproxy-documentation/" title="Previous Post: HAProxy Documentation">&laquo; HAProxy Documentation</a>
+        <a class="basic-alignment left" href="/blog/2014/08/11/chef-server-client-installation/" title="Previous Post: Chef Server Client Installation">&laquo; Chef Server Client Installation</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/06/28/gpg-documentation/" title="Next Post: Gpg Documentation">Gpg Documentation &raquo;</a>
       
     </p>
   </footer>
