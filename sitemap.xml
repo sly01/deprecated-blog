@@ -3,6 +3,12 @@
   
   
   <url>
+    <loc>http://sly01.github.io/blog/2014/12/11/elasticsearch-fluent-kibana-installation/</loc>
+    <lastmod>2014-12-11T13:38:50+02:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://sly01.github.io/blog/2014/08/14/resetting-root-postgres-password-for-postgresql/</loc>
     <lastmod>2014-08-14T20:57:30+03:00</lastmod>
     <priority>0.8</priority>
@@ -47,21 +53,21 @@
   
   <url>
     <loc>http://sly01.github.io/blog/archives/</loc>
-    <lastmod>2014-08-15T12:33:15+03:00</lastmod>
+    <lastmod>2014-12-11T13:52:11+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://sly01.github.io/</loc>
-    <lastmod>2014-08-15T12:33:15+03:00</lastmod>
+    <lastmod>2014-12-11T13:52:11+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://sly01.github.io/about/</loc>
-    <lastmod>2014-08-15T12:33:15+03:00</lastmod>
+    <lastmod>2014-12-11T13:52:11+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
