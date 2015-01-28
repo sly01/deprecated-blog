@@ -1,0 +1,629 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Elasticsearch-Fluent-Kibana Installation - Ahmet ERKOC Personal Web Page</title>
+  <meta name="author" content="Ahmet ERKOC">
+
+  
+  <meta name="description" content="1- installing to java for elasticsearch 1
+2
+sudo apt-get update
+sudo apt-get install openjdk-7-jre-headless --yes Then verify installed java, output &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://sly01.github.io/blog/2015/01/13/elasticsearch-fluent-kibana-installation">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Ahmet ERKOC Personal Web Page" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-48411028-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Ahmet ERKOC Personal Web Page</a></h1>
+  
+    <h2>This blog for MacOsX-Linux User and SysAdmin</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:sly01.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Elasticsearch-Fluent-Kibana Installation</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-13T00:06:30+02:00" pubdate data-updated="true">Jan 13<sup>th</sup>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><strong>1- installing to java for elasticsearch</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get update
+</span><span class='line'>sudo apt-get install openjdk-7-jre-headless --yes</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>Then verify installed java, output should be as follows</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>java -version
+</span><span class='line'>
+</span><span class='line'>java version "1.7.0_55"
+</span><span class='line'>OpenJDK Runtime Environment (IcedTea 2.4.7) (7u55-2.4.7-1ubuntu1)
+</span><span class='line'>OpenJDK 64-Bit Server VM (build 24.51-b03, mixed mode)</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>2- Next, download and install Elasticsearch&rsquo;s deb package as follows</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.2.deb
+</span><span class='line'>sudo dpkg -i elasticsearch-1.2.2.deb</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>Or another way of installing elasticsearch but note that may not be latest version</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo get -O - http://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo apt-key add
+</span><span class='line'>
+</span><span class='line'>sudo echo "deb http://packages.elasticsearch.org/elasticsearch/1.0/debian stable main" &gt; /etc/apt/sources.list.d/elasticsearch.list
+</span><span class='line'>sudo apt-get update
+</span><span class='line'>sudo apt-get install elasticsearch</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>For securing issue Elasticsearch</em></p>
+
+<p><strong>Edit /etc/elasticsearch/elasticsearch.yml add this line</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>script.disable_dynamic: true</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>3- Then, start elasticsearch</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo service elasticsearch start</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>4- Installing and Configuring Kibana</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd /opt
+</span><span class='line'>curl -L https://download.elasticsearch.org/kibana/kibana/kibana-3.1.0.tar.gz | tar xzf -
+</span><span class='line'>sudo cp -r kibana-3.1.0 /usr/share/</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>Change this line in /usr/share/kibana-3.1.0/config.js</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>elasticsearch: "http://"+window.location.hostname+":80"</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>5- Installing and Configuring Nginx</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install nginx</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>Configuration nginx as a proxy server to serve dashboard to public internet</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>wget https://assets.digitalocean.com/articles/fluentd/nginx.conf
+</span><span class='line'>sudo cp nginx.conf /etc/nginx/sites-available/default</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>Edit the nginx file which download from digitalocean as follow</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>server {
+</span><span class='line'>  listen                *:80 ;
+</span><span class='line'>  server_name           kibana.myhost.com;
+</span><span class='line'>  access_log            /var/log/nginx/kibana_access.log;
+</span><span class='line'>  error_log             /var/log/nginx/kibana_error.log;
+</span><span class='line'>  location / {
+</span><span class='line'>    root  /usr/share/kibana-3.1.0;
+</span><span class='line'>    index  index.html  index.htm;
+</span><span class='line'>  }</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>Then restart nginx</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  sudo service nginx restart</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>6- Installing and Configuration Fluentd</strong></p>
+
+<p><em>Installing Fluentd which is built and maintained by Treasure Data</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  For ubuntu
+</span><span class='line'>
+</span><span class='line'>  wget http://packages.treasuredata.com/2/ubuntu/trusty/pool/contrib/t/td-agent/td-agent_2.0.4-0_amd64.deb
+</span><span class='line'>
+</span><span class='line'>  sudo dpkg -i td-agent_2.0.4-0_amd64.deb
+</span><span class='line'>
+</span><span class='line'>  For debian
+</span><span class='line'>
+</span><span class='line'>  wget http://packages.treasuredata.com.s3.amazonaws.com/2/debian/wheezy/pool/contrib/t/td-agent/td-agent_2.1.1-0_amd64.deb
+</span><span class='line'>
+</span><span class='line'>  sudo dpkg -i td-agent_2.1.1-0_amd64.deb
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>  <strong>From the apt repository</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  For Trusty,
+</span><span class='line'>
+</span><span class='line'>  curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-trusty-td-agent2.sh | sh
+</span><span class='line'>
+</span><span class='line'>  For Precise,
+</span><span class='line'>
+</span><span class='line'>  curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-precise-td-agent2.sh | sh
+</span><span class='line'>
+</span><span class='line'>  For Lucid,
+</span><span class='line'>
+</span><span class='line'>  curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-lucid-td-agent2.sh | sh
+</span><span class='line'>
+</span><span class='line'>  For Debian Wheezy,
+</span><span class='line'>
+</span><span class='line'>  curl -L http://toolbelt.treasuredata.com/sh/install-debian-wheezy-td-agent2.sh | sh
+</span><span class='line'>
+</span><span class='line'>  For Debian Squeeze,
+</span><span class='line'>
+</span><span class='line'>  curl -L http://toolbelt.treasuredata.com/sh/install-debian-squeeze-td-agent2.sh | sh</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>Note that first way is working more properly.The problem is that with the second way /etc/init.d/td-agent doesn&rsquo;t work !.</h5>
+
+<p><em>Installing the plugins</em></p>
+
+<p><strong>We need a couple of plugins:</strong></p>
+
+<p><em>1.out_elasticsearch: this plugin lets Fluentd to stream data to Elasticsearch.</em></p>
+
+<p><em>2.outrecordreformer: this plugin lets us process data into a more useful format.</em></p>
+
+<p><em>3.S3:                this plugin lets us store data in amazon-s3 servers.</em></p>
+
+<p><em>For out_elasticsearch install make and curl as follows</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  sudo apt-get install make libcurl4-gnutls-dev --yes</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>For Ubuntu installation</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  libcurl could be problem then you need compile from source code as follow;
+</span><span class='line'>
+</span><span class='line'>  git clone https://github.com/bagder/curl.git
+</span><span class='line'>  cd curl
+</span><span class='line'>  ./buildconf
+</span><span class='line'>  ./configure
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  sudo /opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-elasticsearch
+</span><span class='line'>  sudo /opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-record-reformer
+</span><span class='line'>  sudo /opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-s3
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>Configuration of fluentd for syslog and nginx access log and store localhost and amazon-s3 add those line to /etc/td-agent/td-agent.conf on the top</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  &lt;source&gt;
+</span><span class='line'>  type syslog
+</span><span class='line'>  port 5140
+</span><span class='line'>  tag  system
+</span><span class='line'>  &lt;/source&gt;
+</span><span class='line'>
+</span><span class='line'>  &lt;source&gt;
+</span><span class='line'>  type tail
+</span><span class='line'>  format nginx
+</span><span class='line'>  tag nginx.access
+</span><span class='line'>  path /var/log/nginx/kibana.log
+</span><span class='line'>  pos_file /var/log/td-agent/kibana.log.post
+</span><span class='line'>  # Date and time format
+</span><span class='line'>  time_format %d/%b/%Y:%H:%M:%S %z
+</span><span class='line'>  &lt;/source&gt;
+</span><span class='line'>  #You can also change with specific tag
+</span><span class='line'>
+</span><span class='line'>  &lt;match user.*.*&gt;
+</span><span class='line'>  #blahh ...
+</span><span class='line'>  &lt;/match&gt;
+</span><span class='line'>
+</span><span class='line'>  &lt;match **&gt;
+</span><span class='line'>  type copy
+</span><span class='line'>  &lt;store&gt;
+</span><span class='line'>  type elasticsearch
+</span><span class='line'>  logstash_format true
+</span><span class='line'>  host localhost
+</span><span class='line'>  port 9200
+</span><span class='line'>  &lt;/store&gt;
+</span><span class='line'>
+</span><span class='line'>  &lt;store&gt;
+</span><span class='line'>  type s3
+</span><span class='line'>  aws_key_id ACCESS-KEY
+</span><span class='line'>  aws_sec_key SECRET-KEY
+</span><span class='line'>  s3_bucket BUCKET-NAME
+</span><span class='line'>  s3_region REGION
+</span><span class='line'>  #Path on the bucket
+</span><span class='line'>  path logs/
+</span><span class='line'>  #Before sending to logs where to store
+</span><span class='line'>  buffer_path /var/log/td-agent/buffer/s3
+</span><span class='line'>  time_slice_format %Y-%m-%d/%H
+</span><span class='line'>  time_slice_wait 10m
+</span><span class='line'>  &lt;/store&gt;
+</span><span class='line'>
+</span><span class='line'>  &lt;/match&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>To check the syntax of td-agent conf</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  sudo service td-agent configtest
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Starting fluentd</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  sudo service td-agent start
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Note that after editing the configuration file restart td-agent</strong></p>
+
+<p><strong>7- Forwarding syslog to Fluentd</strong></p>
+
+<p><em>Add this line to /etc/rsyslog.conf</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  Specified port in td-agent.conf for rsyslog -&gt; Port
+</span><span class='line'>  *.* @fluentdServerIp:Port
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>Then restart rsyslog take effect</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  sudo service rsyslog restart
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>Now when you got server ip you should see the dashboard.</h5>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ahmet ERKOC</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-13T00:06:30+02:00" pubdate data-updated="true">Jan 13<sup>th</sup>, 2015</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://sly01.github.io/blog/2015/01/13/elasticsearch-fluent-kibana-installation/" data-via="ahmeterkoc01" data-counturl="http://sly01.github.io/blog/2015/01/13/elasticsearch-fluent-kibana-installation/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/08/14/resetting-root-postgres-password-for-postgresql/" title="Previous Post: Resetting Root(postgres) Password for Postgresql">&laquo; Resetting Root(postgres) Password for Postgresql</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2015/01/28/splunk-installation-and-adding-forwarder/" title="Next Post: Splunk Installation and Adding Forwarder">Splunk Installation and Adding Forwarder &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/01/28/splunk-installation-and-adding-forwarder/">Splunk Installation and Adding Forwarder</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/13/elasticsearch-fluent-kibana-installation/">Elasticsearch-Fluent-Kibana Installation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/08/14/resetting-root-postgres-password-for-postgresql/">Resetting Root(postgres) Password for Postgresql</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/08/11/chef-server-client-installation/">Chef Server Client Installation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/05/setting-up-a-blog-with-octopress/">Setting Up a Blog With Octopress</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/sly01">@sly01</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'sly01',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Ahmet ERKOC -
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
